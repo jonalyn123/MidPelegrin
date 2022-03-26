@@ -2,6 +2,8 @@ package com.example.midpelegrin;
 
 import androidx.appcompat.app.AppCompatActivity;
 
+import android.content.Context;
+import android.database.sqlite.SQLiteDatabase;
 import android.os.Bundle;
 
 import android.app.AlertDialog;
@@ -14,7 +16,7 @@ import android.widget.Toast;
 public class MainActivity extends AppCompatActivity {
 
     EditText id, name, dsc, price, qty;
-    Button create, retrieve, update, delete;
+    Button create, retrieve, update, delete, retrieveid;
     DBHelper DB;
 
     @Override
@@ -22,14 +24,15 @@ public class MainActivity extends AppCompatActivity {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_main);
 
-        id = findViewById(R.id.prodID);
+        id = (EditText) findViewById(R.id.prodID);
         name = findViewById(R.id.prodName);
         dsc = findViewById(R.id.prodDesc);
         price = findViewById(R.id.prodPrice);
         qty = findViewById(R.id.prodqty);
 
         create = findViewById(R.id.createbtn);
-        retrieve = findViewById(R.id.retrievebtn);
+        retrieve = findViewById(R.id.retrieveID);
+        retrieveid = (Button) findViewById(R.id.retrieveID);
         update = findViewById(R.id.updatebtn);
         delete = findViewById(R.id.deletebtn);
 
@@ -183,6 +186,35 @@ public class MainActivity extends AppCompatActivity {
                 android.app.AlertDialog.Builder builder = new AlertDialog.Builder(MainActivity.this);
                 builder.setCancelable(true);
                 builder.setTitle("Bread Orders");
+                builder.setMessage(buffer.toString());
+                builder.show();
+            }
+        });
+
+        retrieveid.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                String n = id.getText().toString();
+                SQLiteDatabase simpledb = getApplicationContext().openOrCreateDatabase("Productdata.db", Context.MODE_PRIVATE,null);
+                Cursor c = simpledb.rawQuery("Select * from Bake Shop where id ='"+n+"'",null);
+                if (c.getCount() == 0)
+                {
+                    Toast.makeText(MainActivity.this, "No Product/s Exists", Toast.LENGTH_SHORT).show();
+                    return;
+                }
+
+                StringBuffer buffer = new StringBuffer();
+                while (c.moveToNext()) {
+                    buffer.append("ID: " + c.getString(0) + "\n");
+                    buffer.append("Name: " + c.getString(1) + "\n");
+                    buffer.append("Description: " + c.getString(2) + "\n");
+                    buffer.append("Price: " + c.getString(3) + "\n");
+                    buffer.append("Quantity: " + c.getString(4) + "\n\n");
+
+                }
+                android.app.AlertDialog.Builder builder = new AlertDialog.Builder(MainActivity.this);
+                builder.setCancelable(true);
+                builder.setTitle("Products");
                 builder.setMessage(buffer.toString());
                 builder.show();
             }

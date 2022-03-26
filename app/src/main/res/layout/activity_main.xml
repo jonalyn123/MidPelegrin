@@ -90,7 +90,7 @@
             android:text="CREATE" />
 
         <Button
-            android:id="@+id/retrievebtn"
+            android:id="@+id/retBtn"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:layout_marginStart="20dp"
@@ -98,7 +98,18 @@
             android:layout_marginEnd="20dp"
             android:backgroundTint="#D81B60"
             android:fontFamily="sans-serif-black"
-            android:text="RETRIEVE" />
+            android:text="RETRIVE" />
+
+        <Button
+            android:id="@+id/retrieveID"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_marginStart="20dp"
+            android:layout_marginTop="10dp"
+            android:layout_marginEnd="20dp"
+            android:backgroundTint="#D81B60"
+            android:fontFamily="sans-serif-black"
+            android:text="RETRIEVE USING ID" />
 
         <Button
             android:id="@+id/updatebtn"
