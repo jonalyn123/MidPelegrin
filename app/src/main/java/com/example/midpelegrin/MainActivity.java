@@ -31,7 +31,7 @@ public class MainActivity extends AppCompatActivity {
         qty = findViewById(R.id.prodqty);
 
         create = findViewById(R.id.createbtn);
-        retrieve = findViewById(R.id.retrieveID);
+        retrieve = findViewById(R.id.retBtn);
         retrieveid = (Button) findViewById(R.id.retrieveID);
         update = findViewById(R.id.updatebtn);
         delete = findViewById(R.id.deletebtn);
@@ -171,7 +171,7 @@ public class MainActivity extends AppCompatActivity {
             public void onClick(View view) {
                 Cursor res = DB.getdata();
                 if (res.getCount() == 0) {
-                    Toast.makeText(MainActivity.this, "No Bread Orders Exists", Toast.LENGTH_SHORT).show();
+                    Toast.makeText(MainActivity.this, "No Product/s Exists", Toast.LENGTH_SHORT).show();
                     return;
                 }
                 StringBuffer buffer = new StringBuffer();
@@ -185,7 +185,7 @@ public class MainActivity extends AppCompatActivity {
 
                 android.app.AlertDialog.Builder builder = new AlertDialog.Builder(MainActivity.this);
                 builder.setCancelable(true);
-                builder.setTitle("Bread Orders");
+                builder.setTitle("Product Entries");
                 builder.setMessage(buffer.toString());
                 builder.show();
             }
@@ -195,8 +195,8 @@ public class MainActivity extends AppCompatActivity {
             @Override
             public void onClick(View view) {
                 String n = id.getText().toString();
-                SQLiteDatabase simpledb = getApplicationContext().openOrCreateDatabase("Productdata.db", Context.MODE_PRIVATE,null);
-                Cursor c = simpledb.rawQuery("Select * from Bake Shop where id ='"+n+"'",null);
+                SQLiteDatabase simpledb = getApplicationContext().openOrCreateDatabase("BakeShop.db", Context.MODE_PRIVATE,null);
+                Cursor c = simpledb.rawQuery("Select * from Derivativedetails where id ='"+n+"'",null);
                 if (c.getCount() == 0)
                 {
                     Toast.makeText(MainActivity.this, "No Product/s Exists", Toast.LENGTH_SHORT).show();
